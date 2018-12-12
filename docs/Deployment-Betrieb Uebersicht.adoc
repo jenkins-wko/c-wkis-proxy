@@ -1,0 +1,58 @@
+= WKIS-Proxy Deplyoment und Betrieb
+
+
+.Deployment Artefakte
+|===
+|Repo | Beschreibung | Abhängigkeiten
+|https://github.com/rhoerbe/c-wkis-proxy[c-wkis-proxy] | SATOSA Config Template Repo  | -> d-satosa
+|https://github.com/identinetics/d-satosa[d-satosa]| Satosa Docker Image Builder | -> SATOSA upstream
+|https://github.com/identinetics/d-mdfilter[d-mdfilter] |  Metadaten Filter | -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity]
+|https://github.com/rhoerbe/c-webisoget[c-webisoget] | Webisoget config Template Repo|
+|https://github.com/identinetics/webisoget[webisoget] |  Webisoget Docker Image Builder |
+|https://github.com/identinetics/c-shibsp-mon[c-shibsp-mon] |  Monitoring SP Docker Image Builder |
+|https://github.com/identinetics/[dcshell] | Docker-compose Ergänzungen |
+|wiki.wpv.test.portalverbund.gv.at | Online-Dokumentation WPV|
+|===
+
+Installation und Konfiguration sind im README des jeweiligen Repos enthalten.
+
+
+.Deployment Übersicht
+image::Deployment_wkis_proxy.png[]
+
+
+=== Staging Umgebungen
+
+Staging erfolgt durch das Taggen der Docker Images mit entsorechenden Tags.
+Welche Source Version jeweils verwendet wird muss vom Betreiber entschieden werden.
+
+
+=== Versionierung & Tagging für Staging-Zonen
+
+Alle Docker Images bekommen mit dem build.sh Script ein Tag mit der Buildnummer.
+Die Buildnr hat das Format Bn.m, wobei n die globale und m die lokale Buildnr ist.
+Die Buildnummer reflektiert die Änderungen von Source und Abhängigkeiten.
+Siehe https://github.com/identinetics/dcshell/blob/master/docs/Buildnumbers.adoc [Buildnumbers].
+
+Als Ergebnis eines Builds wird das Image mit den Tags :Bn.m und :latest erzeugt.
+Images mit älteren Build#-Tags werden gelöscht, wenn man nicht build.sh mit der Option -k (keep) aufruft.
+
+Der Start eines Containers (run-sh) erfolgt mit dem Tag :lastest,
+ausgenommen es wird eine bestimmtes Tag konfiguriert, z.B. :pr
+
+Die Freigabe eines Image für eine Staging-Zone erfolgt, indem das entsprechende Tag (:pr oder :qa) manuell vergeben wird, z.B.:
+
+    docker tag r2h2/satosa:latest rh2h/satosa:pr
+
+
+==== Container starten
+
+Die Images werden über `docker-compose up` gestartet.
+
+
+=== Installation
+
+Die Images werden über Jenkins gebaut in ein Repository gepusht.
+Die Pipeline für Build etc. ist im jeweiligen Repo unter Jenkinsfile zu finden.
+
+
