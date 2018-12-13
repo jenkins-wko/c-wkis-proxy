@@ -1,4 +1,4 @@
-= WKIS-Proxy Deplyoment und Betrieb
+= WKIS-Proxy Deployment und Betrieb
 
 
 .Deployment Artefakte
