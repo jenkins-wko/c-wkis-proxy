@@ -1,3 +1,4 @@
+:toc:
 = Deployment Dokumentation für den WKIS WPV-Gatway
 
 Das Ziel des Deployments ist einen Gateway zu betreiben, der WKIS mit dem SAML-Profil des WPV verbindet.
@@ -7,7 +8,7 @@ Der Gateway besteht aus:
 - RP Manager (Eine Webapp für die Verwaltung der Relying Parties)
 - SAML Monitor
 
-:toc:
+toc::[]
 
 == Systemvoraussetzungen für den Docker Host
 
