@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="187 284 888 593" width="888" height="593">
+<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="327.248 439 899.752 296" width="899.752" height="296">
   <defs>
     <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
       <font-face-src>
@@ -12,14 +12,19 @@
         <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
       </g>
     </marker>
+    <font-face font-family="Helvetica Neue" font-size="9" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
   </defs>
   <metadata> Produced by OmniGraffle 7.10.2 
-    <dc:date>2019-04-17 12:43:55 +0000</dc:date>
+    <dc:date>2019-04-17 17:01:56 +0000</dc:date>
   </metadata>
-  <g id="Container_Interfaces" stroke="none" stroke-opacity="1" fill="none" fill-opacity="1" stroke-dasharray="none">
+  <g id="Arbeitsfl_che_4" stroke="none" stroke-opacity="1" fill="none" fill-opacity="1" stroke-dasharray="none">
     <title>Container Interfaces</title>
-    <rect fill="white" x="187" y="284" width="888" height="593"/>
-    <g id="Container_Interfaces: Ebene 1">
+    <rect fill="white" x="327.248" y="439" width="899.752" height="296"/>
+    <g id="Arbeitsfl_che_4: Ebene 1">
       <title>Ebene 1</title>
       <g id="Graphic_12">
         <rect x="532.36324" y="545.5" width="146" height="92" fill="white"/>
@@ -103,6 +108,11 @@
       </g>
       <g id="Line_34">
         <line x1="532.36324" y1="621.2976" x2="468.7622" y2="647.25864" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_35">
+        <text transform="translate(1212 713.748)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="9" font-weight="400" fill="black" x="1.249" y="9">.</tspan>
+        </text>
       </g>
     </g>
   </g>

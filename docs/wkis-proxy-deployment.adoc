@@ -1,5 +1,7 @@
 :toc:
-= Deployment-Dokumentation für den WKIS WPV-Proxy
+= Deployment-Dokumentation für den WKIS/WPV-Proxy
+:sectnums:
+:sectnumlevels: 4
 
 == Übersicht
 === Zweck
@@ -7,32 +9,40 @@
 Der Zweck des Proxy ist die Entkopplung zwischen ADFS und der SAML Federation, wobei folgende Ziele verfolgt werden:
 
 * Unterstützung von Einwilligung, Mehrfaktor-Authentifizierung, Profilvervollständigung und
-Mitglieds- und Rollenauswahl ohne SP-seitig das WKIS-Redirect implementieren zu müssen.
+Mitglieds- und Rollenauswahl ohne SP-seitig das WKIS-Redirect-Verfahren implementieren zu müssen.
 * Vereinfachte Einbindung neuer Anwendungen
 * Der jährliche Zertifikatstausch wird automtisiert zwischen Proxy und ADFS abgehandelt.
 
-Das Grobschema sie wie folgt aus:
-
-.Deployment Übersicht
-image::Deployment_wkis_proxy2.svg[]
+.Konzept
+image::resources/Deployment_wkis_proxy_fed.svg[]
 
 
-=== CI-Prozess und Schnittstellen
+=== CI-Prozess und Container Schnittstellen
 
-Der WKIS-WPV Gateway besteht aus mehreren Docker Images.
-Die Schnittstelle zwischen Entwicklung und Betrieb sind öffentliche Github Repositories,
-in denen Sourcen und Buildscripts enthalten sind.
-Für die Konfiguration werden Templates in privaten Github-Repos bereitgestellt.
+Der WKIS/WPV Proxy wird in Form mehrerer Docker Images deployed.
+Zur Generierung der Images wird  ein CI-Prozess eingerichtet.
 
-Die Container werden mit Docker-Compose verwaltet.
-Die compose-config Dateien werden als Default mitgeliefert.
+.CI-Prozess
+image::resources/Deployment_wkis_proxy_flow.svg[]
+{empty} +
 
 Die Docker Images werden über Jenkins Jobs erzeugt und optional in ein Docker Repository hochgeladen.
 Im jeweiligen Git Repo gibt es dafür ein Jenkinsfile.
 In der Zielumgebung werden die Images vom Docker Repo geladen und ausgeführt.
 
-.Deployment Übersicht
-image::Deployment_wkis_proxy_interfaces.svg[]
+Für die Container werden folgende Schnittstellen bereitgestellt:
+
+.Container Schnittstellen
+image::resources/Deployment_wkis_proxy_interfaces.svg[]
+{empty} +
+
+Die Container werden mit Docker-Compose erzeugt und gesteuert.
+
+Die Konfiguration erfolgt über Konfigurationsdateien, die in persistenten Docker Volumes gespeichert werden.
+Bestimmte Werte werden über das Environment (-> Compose-File) übergeben.
+
+Die Konfigurationsdateien werden als Default mitgeliefert und sind für den CI-Prozess eingerichtet.
+Für das Zielsystem sind sie entsprechend dieser Dokumentation anzupassen.
 
 
 == Deployment
@@ -44,31 +54,38 @@ image::Deployment_wkis_proxy_interfaces.svg[]
 
 === Komponenten und Deployment Artefakte
 
+Die im Projekt zu betreibenden Images sind die 4 mit starkem Rand gekennzeichnenten Kästchen.
+
+.Komponenten Übersicht
+image::resources/Deployment_wkis_proxy_comp.svg[]
+{empty} +
+
+
 .Deployment Artefakte
-[cols="2,1,8,3"]
+[cols="3,1,6,3"]
 |===
 |Repo | Build | Beschreibung | Abhängigkeiten
 |https://github.com/rhoerbe/c-wkis-proxy[c-wkis-proxy] | - | SATOSA Config Template Repo (zugriffsgeschützt) |
-|https://github.com/identinetics/d-satosa[d-satosa]| X | Satosa Docker Image Builder | SATOSA, dcshell
-|https://github.com/identitypython/SATOSA[SATOSA] | - | SATOSA SAML/OIDC Proxy |
-|https://github.com/identinetics/d-rpmgr[d-rpmgr] | X |  Relying Party Manager| -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity]
+|https://github.com/identinetics/d-satosa[d-satosa]| X | Satosa Docker Image Builder | SATOSA, dcshell, d-centos7_py36_base
+|https://github.com/identitypython/SATOSA[SATOSA] | - | SATOSA SAML/SAML Proxy |
+|https://github.com/identinetics/d-rpmgr[d-rpmgr] | X |  Relying Party Manager (RPMGR)| -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity], d-centos7_py36_base
 |https://github.com/identinetics/webisoget[webisoget] | X |  SAML-Monitor Webisoget (Docker Image Builder) |
 |https://github.com/rhoerbe/c-webisoget[c-webisoget] | - | Webisoget config Template Repo|
 |https://github.com/identinetics/c-shibsp-mon[c-shibsp-mon] | X |  Monitoring SP Docker Image Builder |
+|https://github.com/identinetics/d-centos7_base[d-centos7_base] | X | Base Docker Image |
+|https://github.com/identinetics/d-centos7_py36_base[d-centos7_py36_base] | X | Base Docker Image | centos7_base
 |https://github.com/identinetics/[dcshell] | - | Docker-compose tools |
 |https://wiki.wpv.test.portalverbund.gv.at[wiki] | - | Online-Dokumentation WPV|
+|WKIS (ADFS) | - | Der Proxy ist im IDP als Relying Party einzurichten und die Metadaten sind dem  Proxy zur Verfügung zu stellen.|
+|Edge Proxy| - | DNS-Endpunkt für den IDP Proxy, termininiert TLS und leitet HTTP-Requests mit X-Forwarded-* Headern weiter |
 |===
 
 Installation und Konfiguration sind im README des jeweiligen Repos enthalten.
 
 
-.Deployment Übersicht
-image::Deployment_wkis_proxy.png[]
-
-
 === Staging Umgebungen
 
-Eine klare Trennung der Staging-Zonen ist nicht immer wünscheswert,
+Eine klare Trennung der Staging-Zonen ist nicht immer wünschenswert,
 daher muss im Einzelfall entscheiden werden wo welche Komponente eingebunden wird.
 Das Standardschema ist:
 
@@ -108,16 +125,16 @@ Z.B. könnte eine Image Liste wie folgt aussehen:
     r2h2/shibsp           B5.4                ad47b59835b1        3 months ago        708MB
     r2h2/pyff             B6.1                f838e34df5a5        7 months ago        1.14GB
 
-Die einfachste Möglichkeit die Image-Version einer Zone zuzuordnen ist den services.service.image Key im docker.compose.yaml entspreched zu setzen.
+Die einfachste Möglichkeit die Image-Version einer Zone zuzuordnen ist den services.service.image Key im Compose-File entspreched zu setzen.
 
 Die Buildnummer reflektiert die Änderungen von Source und Abhängigkeiten.
-Siehe https://github.com/identinetics/dcshell/blob/master/docs/Buildnumbers.adoc [Buildnumbers].
+Siehe https://github.com/identinetics/dcshell/blob/master/docs/Buildnumbers.adoc[Buildnumbers].
 
 Als Ergebnis eines Builds wird das Image mit den Tags :Bn.m und :latest erzeugt.
 Images mit älteren Build#-Tags werden am Build-Server automatisch gelöscht.
 Am Zielserver sind sie manuell zu verwalten.
 
-Der Start eines Containers erfolgt mit dem im docker-compose File konfigurierten Tag.
+Der Start eines Containers erfolgt mit dem im Compose-File konfigurierten Tag.
 Die Freigabe eines Image für eine Staging-Zone erfolgt, indem der Container gelöscht und neu erstellt wird.
 (docker-compose doown und up).
 
@@ -125,36 +142,40 @@ Die Freigabe eines Image für eine Staging-Zone erfolgt, indem der Container gel
 === Parallelbetrieb von Containern auf der gleichen VM
 
 QS und Prod-Instanzen können auf der gleichen VM betrieben werden.
-Folgende Unterschiede sind in der Konfiguration zu beachten:
+Die unterschiedlichen Namen können z.B. wie folgt konfiguriert werden:
 
 |===
 | Datei | Variable | Wert QS | Wert Prod
 | docker-compose.yaml | service | satosa-qs | satosa
-| docker-compose.yaml | container_name | 05satosa | 06satosa
-| docker-compose.yaml | hostname | 05satosa | 06satosa
-| docker-compose.yaml | volumes | 05... | 06...
+| docker-compose.yaml | container_name |satosa-qs | satosa
+| docker-compose.yaml | volumes | qs... | ...
 | httpd.conf | Liste | 8001 |  8000
 | vhost.conf | VirtualHost | *:8001 |  *.8000
 |===
 
-Achtung! docker-compose schreibt die Warnung "Found orphan containers (..satosa) for this project",
-wenn die Image Tags auf das gleiche Image verweisen.
-Diese Warnung ist zu ignorieren. (Man könnte auch separate Projeke definieren, siehe --project.)
+Hinweis: `docker-compose` schreibt die Warnung "Found orphan containers (..satosa) for this project",
+wenn die Image Tags auf das gleiche Image verweisen. Diese Warnung ist zu ignorieren.
+Alternativ kan man separate Projeke definieren und bei jedem Auruf von docker-compose mit --project übergeben.)
 
 === Build Prozess
 
+Die Schnittstelle zwischen Entwicklung und Betrieb sind öffentliche Github Repositories,
+in denen Sourcen und Jenkins Buildscripts enthalten sind.
+Die Docker Images werden mit einem Jenkins Server erstellt und auf einem Docker Repo abgelegt.
+Die jeweilige Build-Nummer wird im Image Tag geführt.
+
 ==== Jenkins einrichten
 
-Der Jenkinsserver benötigt Zugriff auf alle für den Build-Prozess notwendigen Ressourcen.
+Der Jenkinsserver benötigt Zugriff auf alle für den Build-Prozess notwendigen Netzwerk-Ressourcen.
 Dafür ist entweder eine Internetverbindung (direkt oder Proxy) erforderlich,
-oder es werden Ressourcen in einem lokalen Spiegel-Repository vorgehalten und der buildprozess entsprechend angepasst.
+oder es werden Ressourcen in einem lokalen Spiegel-Repository vorgehalten und der Buildprozess entsprechend angepasst.
 Ein Whitelisting der ausgehenden Verbindungen ist aufwändig,
 vor allem weil sich die CentOS-Mirror-Server laufend ändern.
 
 Die Quelle für CI-Pipeline ist das Jenkinsfile im jeweiligen Source-Repository (siehe Liste der Artefakte).
 Es enthält die Konfiguration und das Jenkinsfile für den Build-Prozess.
 
-Um einen Jenkins Job zu erstellen ist folgendes zu beachten:
+Um einen Jenkins Job zu erstellen ist Folgendes zu beachten:
 
 - Elementart "Pipeline"
 - Die Buildparameter werden aus der Pipelinedefinition gesteuert und brauchen nicht erfasst werden
@@ -163,81 +184,63 @@ Um einen Jenkins Job zu erstellen ist folgendes zu beachten:
 - Additional Behavior "Recursively update submodules" ist zu aktivieren
 - Script Path = "Jenkinsfile"
 
-Das Template für das (private) Repo ist https://github.com/rhoerbe/c-wkis-proxy.
-Das Repo liegt auf github.com/identinetics und ist nur für autorisierte Benutzer erreichbar.
-Für den Build-Server wird ein eigener Deploy Key eingerichtet:
+Für alle Images, die in der Tabelle "Deployment Artefakte" mit "build" gekennzeichnet sind, ist ein Jenkins Job einzurichten.
+Dafür kann der erste Job dupliziert werden; es braucht nur der Repo-URL angepasst werden.
 
-    ssh-keygen -t ed25519 -f  ~/.ssh/id_ed25519_c-wikis-proxy
+==== Jenkins Jobs starten
 
-Der zugehörige Eintrag in ~/.ssh/config sieht dann wie folgt aus (Hostname ist per Konvention der Repo-Name):
+Neben dem Start per GUI ist es ratsam die Jenkins-Jobs regeläßig zu starten und Fehler dem Administrator zu melden.
+Ein Script für einen Cron-Job können etwa wie folgt aussehen:
 
-    Host c-wkis-proxy
-        Hostname github.com
-        IdentityFile ~/.ssh/id_ed25519_c-wikis-proxy
-        User git
+[source,bash]
+----
+#!/bin/bash
 
-Laden:
+jenkins_build() {
+    ssh -p 8022 admin@localhost build -v -s $*
+    if (( $? != 0)); then
+        echo "add your admin alert here: jenkins build $* failed"
+    fi
+}
 
-    cd /opt/c-wkis-proxy  
-    git clone c-wkis-proxy:rhoerbe/c-wkis-proxy
+paramset2='-p nocache= -p pushimage=1'
+paramset4='-p nocache="" -p start_clean=1 -p pushimage=1 -p keep_running=""'
 
-==== Build/Deploy Image
+jenkins_build intra/centos7_base
+jenkins_build intra/centos7_py36_base $paramset2
+jenkins_build shib/d-shibsp $paramset4
+jenkins_build wpv/d-satosa $paramset4
+jenkins_build wpv/d-satosa-rpmgr $paramset4
+----
 
-Docker Images werden mit einem Jenkins Server erstellt und auf einem Docker Repo abgelegt.
-Die jeweilige Versionsnummer wird im Image Tag geführt.
-Der Administrator der Zielmaschine holt aktuelle Images und konfiguriert welche Version einzusetzen ist.
-
-Das lokale Docker Repository kann am einfachsten mit der Standard Docker Registry eingerichtet werden.
-Um Images am Zielsystem zu laden wird das jeweilige Image mit `docker pull` geholt.
-Alternativ können Docker Images mit `docker image save` am jenkins-Server in ein tar Archiv kopiert
-und am Zielserver mit `docker image load` geladen werden.
-
-
-Jeder Veränderung im Source Repository oder den Abhängigkeiten erzeugt eine höhere Build Nummer, die im Docker Image Tag enthalten ist.
-(Nicht im RP-Manager).
-
+Die Zeile mit dem Alert ist anzupassen, z.b. um ein Mail zu senden oder einen Eintrag im Ticketing zu erstellen.
 
 === Docker Image am Zielsystem verfügbar machen
 
-Das Docker Image kann von Dockerhub geladen oder lokal gebaut werden. 
-Das entsprechende Quelle ist in docker-compose.yaml zu konfigurieren, also entweder:
+Das lokale Docker Repository kann am einfachsten mit der https://docs.docker.com/registry/[Docker Registry] eingerichtet werden.
 
-* r2h2/satosa:pr oder
-* local/satosa
+Der Registry Upload ist ein optionaler Schritt in den Jenkins-Pipelines.
+Um Images am Zielsystem zu laden wird das jeweilige Image manuell mit `docker pull` geholt.
 
-In der Default Konfiguration wird es von Dockerhub geladen.
+Alternativ können Docker Images mit `docker image save` am jenkins-Server in ein tar Archiv kopiert
+und am Zielserver mit `docker image load` geladen werden.
 
-Der Freigabeprozess neuer Images wird über das Image Tag gesteuert.
-Aktuell ist immer das Image, das mit 'qa' bzw. 'pr' getaggt ist.
-
-Beim Laden des Image von docker.io wird von Identinetics ein mit 'latest' getaggtes Image bereitgestellt.
-Es wird aktiviert, indem es geladen und der Container neu erzeugt wird:
-
-    cd /opt/c-wkis-proxy/d-wkis-proxy
-    docker pull r2h2/satosa:latest  # (oder eine bestimmte Version)
-    docker tag r2h2/satosa:latest r2h2/satosa:pr
-    docker-compose down
-    docker-compose up -d
-
-Alternative: Wird das Image lokal über Jenkins gebaut, muss es zur Freigabe vor dem Neustart händisch getaggt werden:
-
-    docker tag local/satosa:latest local/satosa:[pr | qs]
-
-Die verfügbaren Images sind hier gelistet:
-
-    https://hub.docker.com/r/r2h2/satosa/tags/
+Als dritte Möglichkeit kann die Default Registry (Docker oder Redhat) genutzt werden,
+wenn Docker Content Trust eingerichtet wird.
 
 === Storage
 
+Die Container verwenden auschließlich Docker Named Volumes, die sowohl im jeweiligen Dockerfile als auch Compose-File deklariert sind.
+Zu beachten ist, dass bei einer Umstellug auf einen direkten Mount ins Dateisystem die entsprechenden Verzeichnisse im Container nicht automatisch initialisert werden.
+
 === Netzwerkkonfiguration
 
-Zwischen SATOSA und Internet wird ein Edge-Proxy konfiguriert, der TLS am externen DNS-Host terminiert.
+Zwischen SATOSA und Internet wird ein Edge-Proxy konfiguriert, der die externe DNS-Adresse hat und TLS terminiert.
 Der Edgeproxy leitet die Requests mit der XFF-Konvention an diesen Container weiter ohne die Pfade zu ändern.
 Für die Dauer eines Wartungsfensters oder Systemausfalls ist die Konfiguration so zu ändern, dass sämtliche Requests auf eine statische Seite mit entsprechendem Inhalt umgeleitet werden.
 Die Verbindung zum SATOSA Container erfolgt über http auf Port 8000.
 
-Einrichtung Edge-Proxy
-   DNS, TLS, Reverse Proxy mit X-Forwareded-For
+Für den RPMGR-Container ist ebenfalls ein Proxy zu konfigurieren, der nur für den Betrieb die Anwendung bereitstellt.
 
 === Konfiguration von Container und Anwendung
 
@@ -260,22 +263,13 @@ Das Deployment erfolgt in folgenden Schritten:
 === Start und Stop
 
 Die Container werden über docker-compose parametrisiert und gesteuert.
-docker-compose.yaml muss im aktuellen Verzeichnis sein (oder mit -f angegeben werden).
-
-.docker-compose Datei
-|===
-| Umgebung | Pfad
-|QS | /opt/c-wkis-proxy-qs/d-satosa/docker-compose.yaml
-|Prod | /opt/c-wkis-proxy-pr/d-satosa/docker-compose.yaml
-|===
 
 .Befehle
 |===
 | Operation| Befehl: docker-compose ...
 | Container erzeugen und im Hintergrund starten | up -d
 | Container stoppen und löschen | down
-| Container stdout + stderr anzeigen [follow] | logs [-f]
-| Terminal-Fenster im Container öffnen | exec satosa[-qs] bash
+| Terminal-Fenster im Container öffnen | exec <servce> bash
 |===
 
 
@@ -285,7 +279,7 @@ Das einfache Monitoring erfolgt mit einem HTTP-Request auf den Proxy mit dem Pfa
 Das erwartete Resultat ist ein HTTP 4xx Fehler.
 
 Das ausführliche Monitoring führt eine Anmeldung durch.
-Dazu wird Webisoget konfiguriert. (siehe separate Dokumentation)
+Dazu wird Webisoget konfiguriert. (-> separate Dokumentation)
 
 
 === Backup/Recovery
@@ -304,7 +298,10 @@ Ansonsten wird ein VM-Snapshot in diesem Fall die einfachste Backuzp-Strategie s
 
 === Logging
 
-Die Rotation und Archivierung der Logfiles wird außerhalb der Container gemacht. 
+Die Archivierung der Logfiles wird außerhalb der Container gemacht.
+
+Für die Rotation der Logfiles wird im jeweiligen Container `/opt/bin/rotate_logs.sh` aufgerufen.
+Die Logrotate-Konfiguration kann über /opt/etc/logrotate/logrotate.conf angepasst werden.
 
 
 === Security Considerations
