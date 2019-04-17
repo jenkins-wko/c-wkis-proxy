@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="386 329 793 529" width="793" height="529">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="11" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="13" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="14" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.10.2 
+    <dc:date>2019-04-17 13:02:31 +0000</dc:date>
+  </metadata>
+  <g id="Federation_Sicht" stroke="none" stroke-opacity="1" fill="none" fill-opacity="1" stroke-dasharray="none">
+    <title>Federation Sicht</title>
+    <rect fill="white" x="386" y="329" width="793" height="529"/>
+    <g id="Federation_Sicht: Ebene 2">
+      <title>Ebene 2</title>
+      <g id="Graphic_31">
+        <path d="M 1095.8432 406.824 C 1205.3858 509.92235 1205.3858 677.07765 1095.8432 780.176 C 986.3013 883.2748 808.69875 883.2748 699.1568 780.176 C 589.6142 677.07765 589.6142 509.92235 699.1568 406.824 C 808.69875 303.72515 986.3013 303.72515 1095.8432 406.824" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.0,2.0" stroke-width=".5"/>
+      </g>
+    </g>
+    <g id="Federation_Sicht: Ebene 1">
+      <title>Ebene 1</title>
+      <g id="Graphic_9">
+        <rect x="386.721" y="549" width="135" height="87" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        <text transform="translate(391.721 574.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="42.5" y="15">WKIS</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="37.764" y="33.448">(ADFS)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_10">
+        <rect x="650" y="549" width="135" height="87" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        <text transform="translate(655 574.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="31.828" y="15">SATOSA</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="13.908" y="33.448">(SAML Proxy)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_11">
+        <rect x="916" y="427" width="135" height="87" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        <text transform="translate(921 452.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="28.268" y="15">Compass</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="47.988" y="33.448">(SP)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_12">
+        <rect x="916" y="550" width="135" height="87" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        <text transform="translate(921 575.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="50.06" y="15">ASI</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="47.988" y="33.448">(SP)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_13">
+        <rect x="916" y="690" width="135" height="87" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        <text transform="translate(921 715.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="36.732" y="15">weitere</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="47.988" y="33.448">(SP)</tspan>
+        </text>
+      </g>
+      <g id="Graphic_14">
+        <rect x="916" y="690" width="135" height="87" fill="white"/>
+        <rect x="916" y="690" width="135" height="87" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        <text transform="translate(921 715.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="36.732" y="15">weitere</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="47.988" y="33.448">(SP)</tspan>
+        </text>
+      </g>
+      <g id="Line_18">
+        <line x1="785" y1="592.5" x2="916" y2="511.98615" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_19">
+        <line x1="785" y1="592.5" x2="916" y2="593.15995" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_20">
+        <line x1="785" y1="592.5" x2="922.2606" y2="690" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_21">
+        <line x1="650" y1="592.5" x2="521.721" y2="592.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_22">
+        <text transform="translate(499 579)" fill="#003776">
+          <tspan font-family="Helvetica Neue" font-size="11" font-weight="400" fill="#003776" x="6838974e-19" y="10">IDP</tspan>
+        </text>
+      </g>
+      <g id="Graphic_24">
+        <text transform="translate(655 579)" fill="#003776">
+          <tspan font-family="Helvetica Neue" font-size="11" font-weight="400" fill="#003776" x="6119549e-19" y="10">SP</tspan>
+        </text>
+      </g>
+      <g id="Graphic_25">
+        <text transform="translate(766 579)" fill="#003776">
+          <tspan font-family="Helvetica Neue" font-size="11" font-weight="400" fill="#003776" x="6838974e-19" y="10">IDP</tspan>
+        </text>
+      </g>
+      <g id="Graphic_27">
+        <text transform="translate(804.522 352)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="13" font-weight="400" fill="black" x="19895197e-20" y="12">Wirtschaftsportalverbund</tspan>
+        </text>
+      </g>
+      <g id="Group_30">
+        <g id="Graphic_28">
+          <path d="M 748.8605 769.1 L 748.8605 705.9 C 748.8605 701.5392 771.2605 698 798.8605 698 C 826.4605 698 848.8605 701.5392 848.8605 705.9 L 848.8605 769.1 C 848.8605 773.4608 826.4605 777 798.8605 777 C 771.2605 777 748.8605 773.4608 748.8605 769.1 M 748.8605 705.9 C 748.8605 710.2608 771.2605 713.8 798.8605 713.8 C 826.4605 713.8 848.8605 710.2608 848.8605 705.9" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+        </g>
+        <g id="Graphic_29">
+          <text transform="translate(765.2745 729.108)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="18.291" y="13">WPV</tspan>
+            <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="0" y="29.392">Metadaten</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Graphic_32">
+        <text transform="translate(775 518)" fill="#003776">
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="#003776" x="4973799e-19" y="13">wkis.wko.at</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

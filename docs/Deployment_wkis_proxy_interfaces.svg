@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="187 284 888 593" width="888" height="593">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.10.2 
+    <dc:date>2019-04-17 12:31:04 +0000</dc:date>
+  </metadata>
+  <g id="Container_Interfaces" stroke="none" stroke-opacity="1" fill="none" fill-opacity="1" stroke-dasharray="none">
+    <title>Container Interfaces</title>
+    <rect fill="white" x="187" y="284" width="888" height="593"/>
+    <g id="Container_Interfaces: Ebene 1">
+      <title>Ebene 1</title>
+      <g id="Graphic_12">
+        <rect x="534.0625" y="545.5" width="146" height="92" fill="white"/>
+        <rect x="534.0625" y="545.5" width="146" height="92" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(539.0625 573.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="42.368" y="15">Docker </tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="33.184" y="33.448">Container</tspan>
+        </text>
+      </g>
+      <g id="Graphic_13">
+        <text transform="translate(613.5625 449)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="2344791e-19" y="15">Storage</tspan>
+        </text>
+      </g>
+      <g id="Line_14">
+        <line x1="619.0898" y1="545.5" x2="635.2802" y2="483.578" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_16">
+        <text transform="translate(524.5625 449)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="30553338e-20" y="15">Network</tspan>
+        </text>
+      </g>
+      <g id="Line_15">
+        <line x1="588.8583" y1="545.5" x2="564.2056" y2="483.20537" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_18">
+        <text transform="translate(756.4225 601.5)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="2060574e-19" y="15">Monitoring</tspan>
+        </text>
+      </g>
+      <g id="Line_17">
+        <line x1="680.0625" y1="599.2769" x2="741.5782" y2="605.8303" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_20">
+        <text transform="translate(756.4225 550.5)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="8668621e-19" y="15">Logging</tspan>
+        </text>
+      </g>
+      <g id="Line_19">
+        <line x1="680.0625" y1="578.815" x2="741.6686" y2="568.1099" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_23">
+        <text transform="translate(356.224 542.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Build/Deploy</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="23.848" y="33.448">Image</tspan>
+        </text>
+      </g>
+      <g id="Line_22">
+        <line x1="534.0625" y1="580.45615" x2="462.8686" y2="569.68555" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_25">
+        <text transform="translate(350 604.052)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="17.336" y="15">Configure</tspan>
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="42632564e-21" y="33.448">Container/App</tspan>
+        </text>
+      </g>
+      <g id="Line_24">
+        <line x1="534.0625" y1="602.54385" x2="469.0926" y2="612.37285" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_29">
+        <text transform="translate(629.0825 705)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Recovery</tspan>
+        </text>
+      </g>
+      <g id="Line_28">
+        <line x1="627.7882" y1="637.5" x2="651.8813" y2="690.9739" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_27">
+        <text transform="translate(527.2105 705)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Backup</tspan>
+        </text>
+      </g>
+      <g id="Line_26">
+        <line x1="587.53166" y1="637.5" x2="564.8643" y2="690.88736" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

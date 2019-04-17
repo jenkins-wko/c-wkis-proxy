@@ -1,15 +1,28 @@
 :toc:
-= Deployment Dokumentation für den WKIS WPV-Gatway
+= Deployment-Dokumentation für den WKIS WPV-Proxy
 
 == Übersicht
+=== Zweck
 
-Der WKIS-WPV Gateway besteht aus mehreren Docker Images.
+Der Zweck des Proxy ist die Entkopplung zwischen ADFS und der SAML Federation, wobei folgende Ziele verfolgt werden:
+
+* Unterstützung von Einwilligung, Mehrfaktor-Authentifizierung, Profilvervollständigung und
+Mitglieds- und Rollenauswahl ohne SP-seitig das WKIS-Redirect implementieren zu müssen.
+* Vereinfachte Einbindung neuer Anwendungen
+* Der jährliche Zertifikatstausch wird automtisiert zwischen Proxy und ADFS abgehandelt.
+
+Das Grobschema sie wie folgt aus:
+
+.Deployment Übersicht
+image::Deployment_wkis_proxy2.svg[]
+
 
 === CI-Prozess und Schnittstellen
 
+Der WKIS-WPV Gateway besteht aus mehreren Docker Images.
 Die Schnittstelle zwischen Entwicklung und Betrieb sind öffentliche Github Repositories,
 in denen Sourcen und Buildscripts enthalten sind.
-Für die Konfiguration werden Templates in privaten Github-Repos bereitsgestellt.
+Für die Konfiguration werden Templates in privaten Github-Repos bereitgestellt.
 
 Die Container werden mit Docker-Compose verwaltet.
 Die compose-config Dateien werden als Default mitgeliefert.
@@ -18,13 +31,24 @@ Die Docker Images werden über Jenkins Jobs erzeugt und optional in ein Docker R
 Im jeweiligen Git Repo gibt es dafür ein Jenkinsfile.
 In der Zielumgebung werden die Images vom Docker Repo geladen und ausgeführt.
 
+.Deployment Übersicht
+image::Deployment_wkis_proxy_interfaces.svg[]
+
+
+== Deployment
+=== Systemvoraussetzungen für den Docker Host
+
+- RH-Docker oder Docker Community Edition >= 18.09.0
+- Docker Compose >= 1.18
+- git
+
 === Komponenten und Deployment Artefakte
 
 .Deployment Artefakte
 [cols="2,1,8,3"]
 |===
 |Repo | Build | Beschreibung | Abhängigkeiten
-|https://github.com/rhoerbe/c-wkis-proxy[c-wkis-proxy] | - | SATOSA Config Template Repo  |
+|https://github.com/rhoerbe/c-wkis-proxy[c-wkis-proxy] | - | SATOSA Config Template Repo (zugriffsgeschützt) |
 |https://github.com/identinetics/d-satosa[d-satosa]| X | Satosa Docker Image Builder | SATOSA, dcshell
 |https://github.com/identitypython/SATOSA[SATOSA] | - | SATOSA SAML/OIDC Proxy |
 |https://github.com/identinetics/d-rpmgr[d-rpmgr] | X |  Relying Party Manager| -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity]
@@ -74,15 +98,15 @@ Welche Source Version jeweils verwendet wird muss vom Betreiber entschieden werd
 
 Z.B. könnte eine Image Liste wie folgt aussehen:
 
-REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
-r2h2/shibsp           B8.1                62726aee1a4e        3 weeks ago         714MB
-r2h2/shibsp           latest              62726aee1a4e        3 weeks ago         714MB
-r2h2/pyff             B7.5                bd4fb3c5de90        3 weeks ago         1.1GB
-r2h2/pyff             latest              bd4fb3c5de90        3 weeks ago         1.1GB
-r2h2/shibsp           B7.7                6388f9eeb9cc        4 weeks ago         714MB
-postgres              11                  4dcf1ba7e5e2        3 months ago        312MB
-r2h2/shibsp           B5.4                ad47b59835b1        3 months ago        708MB
-r2h2/pyff             B6.1                f838e34df5a5        7 months ago        1.14GB
+    REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+    r2h2/shibsp           B8.1                62726aee1a4e        3 weeks ago         714MB
+    r2h2/shibsp           latest              62726aee1a4e        3 weeks ago         714MB
+    r2h2/pyff             B7.5                bd4fb3c5de90        3 weeks ago         1.1GB
+    r2h2/pyff             latest              bd4fb3c5de90        3 weeks ago         1.1GB
+    r2h2/shibsp           B7.7                6388f9eeb9cc        4 weeks ago         714MB
+    postgres              11                  4dcf1ba7e5e2        3 months ago        312MB
+    r2h2/shibsp           B5.4                ad47b59835b1        3 months ago        708MB
+    r2h2/pyff             B6.1                f838e34df5a5        7 months ago        1.14GB
 
 Die einfachste Möglichkeit die Image-Version einer Zone zuzuordnen ist den services.service.image Key im docker.compose.yaml entspreched zu setzen.
 
@@ -97,27 +121,6 @@ Der Start eines Containers erfolgt mit dem im docker-compose File konfigurierten
 Die Freigabe eines Image für eine Staging-Zone erfolgt, indem der Container gelöscht und neu erstellt wird.
 (docker-compose doown und up).
 
-
-=== Installation
-
-Die Images werden über Jenkins gebaut in ein Repository gepusht.
-Die Pipeline für Build etc. ist im jeweiligen Repo unter Jenkinsfile zu finden.
-
-
-
-Das Ziel des Deployments ist einen Gateway zu betreiben, der WKIS mit dem SAML-Profil des WPV verbindet.
-Der Gateway besteht aus:
-
-- SATOSA (SAML to SAML Porxy)
-- RP Manager (Eine Webapp für die Verwaltung der Relying Parties)
-- SAML Monitor
-
-== Deployment
-=== Systemvoraussetzungen für den Docker Host
-
-- RH-Docker oder Docker Community Edition >= 18.09.0
-- Docker Compose >= 1.18
-- git
 
 === Parallelbetrieb von Containern auf der gleichen VM
 
@@ -142,8 +145,24 @@ Diese Warnung ist zu ignorieren. (Man könnte auch separate Projeke definieren, 
 
 ==== Jenkins einrichten
 
+Der Jenkinsserver benötigt Zugriff auf alle für den Build-Prozess notwendigen Ressourcen.
+Dafür ist entweder eine Internetverbindung (direkt oder Proxy) erforderlich,
+oder es werden Ressourcen in einem lokalen Spiegel-Repository vorgehalten und der buildprozess entsprechend angepasst.
+Ein Whitelisting der ausgehenden Verbindungen ist aufwändig,
+vor allem weil sich die CentOS-Mirror-Server laufend ändern.
+
 Die Quelle für CI-Pipeline ist das Jenkinsfile im jeweiligen Source-Repository (siehe Liste der Artefakte).
 Es enthält die Konfiguration und das Jenkinsfile für den Build-Prozess.
+
+Um einen Jenkins Job zu erstellen ist folgendes zu beachten:
+
+- Elementart "Pipeline"
+- Die Buildparameter werden aus der Pipelinedefinition gesteuert und brauchen nicht erfasst werden
+- Pipelinetyp ist "Pipeline script from SCM"
+- Der Zugriff auf Github muss authentifiziert erfolgen, ein entsprechendes Credential für einen github Account ist zu erstellen
+- Additional Behavior "Recursively update submodules" ist zu aktivieren
+- Script Path = "Jenkinsfile"
+
 Das Template für das (private) Repo ist https://github.com/rhoerbe/c-wkis-proxy.
 Das Repo liegt auf github.com/identinetics und ist nur für autorisierte Benutzer erreichbar.
 Für den Build-Server wird ein eigener Deploy Key eingerichtet:
@@ -167,11 +186,6 @@ Laden:
 Docker Images werden mit einem Jenkins Server erstellt und auf einem Docker Repo abgelegt.
 Die jeweilige Versionsnummer wird im Image Tag geführt.
 Der Administrator der Zielmaschine holt aktuelle Images und konfiguriert welche Version einzusetzen ist.
-
-Für den Build-Prozess ist ein Jenkins Pipeline Job zu definieren.
-Die Pipeline ist (Jenkinsfile) ist  im jeweiligen Repository enthalten.
-In der Job-Definition ist zu beachten, dass Subrepositories geladen werden.
-(-> Advanced Submodule Behaviors | 	Recursively update submodules)
 
 Das lokale Docker Repository kann am einfachsten mit der Standard Docker Registry eingerichtet werden.
 Um Images am Zielsystem zu laden wird das jeweilige Image mit `docker pull` geholt.
