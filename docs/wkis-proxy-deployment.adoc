@@ -65,12 +65,12 @@ image::resources/Deployment_wkis_proxy_comp.svg[]
 [cols="3,1,6,3"]
 |===
 |Repo | Build | Beschreibung | Abhängigkeiten
-|https://github.com/rhoerbe/c-wkis-proxy[c-wkis-proxy] | - | SATOSA Config Template Repo (zugriffsgeschützt) |
+|https://github.com/rhoerbe/c-wkis-proxy[c-wkis-proxy] | - | Dokumentation (zugriffsgeschützt) |
 |https://github.com/identinetics/d-satosa[d-satosa]| X | Satosa Docker Image Builder | SATOSA, dcshell, d-centos7_py36_base
 |https://github.com/identitypython/SATOSA[SATOSA] | - | SATOSA SAML/SAML Proxy |
-|https://github.com/identinetics/d-rpmgr[d-rpmgr] | X |  Relying Party Manager (RPMGR)| -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity], d-centos7_py36_base
+|https://github.com/identinetics/d-satosa-rpmgr[d-satosa-rpmgr] | X |  Relying Party Manager (RPMGR)| -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity], d-centos7_py36_base
 |https://github.com/identinetics/webisoget[webisoget] | X |  SAML-Monitor Webisoget (Docker Image Builder) |
-|https://github.com/rhoerbe/c-webisoget[c-webisoget] | - | Webisoget config Template Repo|
+|https://github.com/rhoerbe/c-webisoget[c-webisoget] | - | Webisoget Config Template Repo|
 |https://github.com/identinetics/c-shibsp-mon[c-shibsp-mon] | X |  Monitoring SP Docker Image Builder |
 |https://github.com/identinetics/d-centos7_base[d-centos7_base] | X | Base Docker Image |
 |https://github.com/identinetics/d-centos7_py36_base[d-centos7_py36_base] | X | Base Docker Image | centos7_base
@@ -105,6 +105,12 @@ Das Standardschema ist:
 | Anwendung produktiv | | | x
 |===
 
+Das Staging von WKIS ist wie folgt:
+
+- dev/test/qss benötigen eine (gemeinsame) IP-Freischaltung
+- test und qss haben getrennte DBs. Die Daten sind Kopien von Prod
+- qss ist ähnlich wie prod, hat aber größerere Wartungsfenster
+- test/qss/prod werden vom Betrieb gemanagt; dev kann ohne Betrieb von Entwicklung geändert werden
 
 === Versionierung
 
@@ -244,8 +250,28 @@ Für den RPMGR-Container ist ebenfalls ein Proxy zu konfigurieren, der nur für 
 
 === Konfiguration von Container und Anwendung
 
-Analog zum Setup im Jenkinsfile wird eine Express-Setup Konfiguration erstellt
-und damit die Konfigurationsdateien für den Apache httpd und shibd erzeugt.
+Die Grundkonfiguration ist auf den Jenkins eingestellt.
+Für das Zielsystem sind abweichend davon folgende Werte anzupassen.
+
+==== SATOSA
+|===
+|File|Parameter|Beschreibung
+|docker-compose.yaml | TARGET_ENTITYID | Neue Backend WKIS entityID (der proxy übernimmt die alte entityID)
+|docker-compose.yaml | port 2022, volume etc_ssh | wird am Zielystem nicht verwendet, sshd wird nicht gestartet
+|docker-compose.yaml | services.<service>.image | anpassen an Repository User und Version Tag
+|satosa.opt_etc:gunicorn/config.py | workers | je nach Anzahl der CPU Cores anpassen
+|satosa.opt_etc:logrotate/logrotate.conf | | Intervalle, Größe etc. nach Bedarf einstellen
+|satosa.opt_etc:satosa||
+|||
+|||
+|||
+|===
+
+==== RPMGR
+
+==== Webisoget
+
+==== Monitoring SP
 
 === Setup Script für die Target VM
 
