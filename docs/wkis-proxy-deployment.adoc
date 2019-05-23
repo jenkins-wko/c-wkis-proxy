@@ -98,6 +98,10 @@ Das Standardschema ist:
 | wkis.play.wko.at | x |  |
 | wkis.qss.wko.at | x | x |
 | wkis.wko.at |  |  | x
+| wkiswpv.qss.wko.at | x | x |
+| wkiswpv.wko.at |  |  | x
+| rpmgr.qss.wko.at | x | x |
+| rpmgr.wko.at |  |  | x
 | Monitoring IDP (idp2.test.wpv.portalverbund.at)| x | x | x
 | Monitoring SP (testsp.wpv.portalverbund.at)| | | x
 | Anwendung mit Spieldaten Einbindungstest | x | |
