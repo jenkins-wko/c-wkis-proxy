@@ -91,23 +91,24 @@ Das Standardschema ist:
 
 [cols="<,<,^,^,^,^"]
 |===
-| Node |                                                       | Port | Entw.  | QS | Prod
-| ext | Metadatenfeed mdfeed.test.wpv.portalverbund.at        |      |   x    | x  |
-| ext | Metadatenfeed mdfeed.wpv.portalverbund.at/metadata.xml|      |        | x  |
-|     | wkis.qss.wko.at                                       | 443  |   x    | x  | x
-|     | wkis.wko.at | 443 | |  | x
+| Node |                                                            | Port | Entw.  | QS | Prod
+| ext | Metadatenfeed mdfeed.test.wpv.portalverbund.at/metadata.xml |  80  |   x    | x  |
+| ext | Metadatenfeed mdfeed.wpv.portalverbund.at/metadata.xml      |  80  |        | x  |
+|     | wkis.qss.wko.at                                             | 443  |   x    | x  | x
+|     | wkis.wko.at | 443 |  |  | x
 | ext | proxy2.test.wpv.portalverbund.at | 8080 | x | x |
-| 1 | wkiswpv.qss.wko.at | 8080 | x | x |
-| 2 | wkiswpv.wko.at | 9090 | |  | x
-| 2 | rpmgr.wko.at | 9091 |  | x | x
-| 1 | idp2.test.wpv.portalverbund.at (Monitoring IDP)| 9092| x | x | x
-| 1 | testsp.wpv.portalverbund.at (Monitoring SP | 9093| | | x
+| 2 | wkiswpv.qss.wko.at | 8080 | x | x |
+| 4 | wkiswpv.wko.at | 9090 | |  | x
+| 4 | rpmgr.web.wk.wknet | 9091 |  | x | x
+| 3 | idp2.web.wk.wknet (Monitoring IDP)| 9092| x | x | x
+| 3 | testsp.web.wk.wknet (Monitoring SP | 9093| | | x
 | | Anwendung mit Spieldaten Einbindungstest || x | |
 | | Anwendung mit Echtdaten Einbindungstest || | x |
 | | Anwendung produktiv || | | x
 |===
 
-Die VMs sind (1) webwpvqss01 (qss) und (2) webwpvqss02 (prod).
+Die VMs sind (1) webwpvqss01 (intern) und (2) webwpvqss02 (extern).
+Die VMs sind (3) webwpvprod01 (intern) und (4) webwpvprod02 (extern).
 
 Das Staging von WKIS ist wie folgt:
 
