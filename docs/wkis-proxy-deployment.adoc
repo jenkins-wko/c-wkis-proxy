@@ -99,7 +99,8 @@ Das Standardschema ist:
 | ext | proxy2.test.wpv.portalverbund.at | 8080 | x | x |
 | 2 | wkiswpv.qss.wko.at | 8080 | x | x |
 | 4 | wkiswpv.wko.at | 9090 | |  | x
-| 4 | rpmgr.web.wk.wknet | 9091 |  | x | x
+| 1 | rpmgr.qss.web.wk.wknet | 8081 |  | x | x
+| 3 | rpmgr.web.wk.wknet | 9091 |  | x | x
 | 3 | idp2.web.wk.wknet (Monitoring IDP)| 9092| x | x | x
 | 3 | testsp.web.wk.wknet (Monitoring SP | 9093| | | x
 | | Anwendung mit Spieldaten Einbindungstest || x | |
@@ -107,8 +108,9 @@ Das Standardschema ist:
 | | Anwendung produktiv || | | x
 |===
 
-Die VMs sind (1) webwpvqss01 (intern) und (2) webwpvqss02 (extern).
-Die VMs sind (3) webwpvprod01 (intern) und (4) webwpvprod02 (extern).
+Die VMs für QSS sind (1) webwpvqss01 (intern) und (2) webwpvqss02 (extern).
+
+Die VMs für Prod sind (3) webwpvprod01 (intern) und (4) webwpvprod02 (extern).
 
 Das Staging von WKIS ist wie folgt:
 
