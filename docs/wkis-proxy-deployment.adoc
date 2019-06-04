@@ -78,6 +78,8 @@ image::resources/Deployment_wkis_proxy_comp.svg[]
 |https://wiki.wpv.test.portalverbund.gv.at[wiki] | - | Online-Dokumentation WPV|
 |WKIS (ADFS) | - | Der Proxy ist im IDP als Relying Party einzurichten und die Metadaten sind dem  Proxy zur Verfügung zu stellen.|
 |Edge Proxy| - | DNS-Endpunkt für den IDP Proxy, termininiert TLS und leitet HTTP-Requests mit X-Forwarded-* Headern weiter |
+|Redis Image| - | Key-Value Store für WKIS-Redirect Flow/official image | https://hub.docker.com/_/redis (`docker pull redis`)
+|Redis compose config| - | Default docker-compose.yaml in diesem Repo | https://hub.docker.com/_/redis (`docker pull redis`)
 |===
 
 Installation und Konfiguration sind im README des jeweiligen Repos enthalten.
@@ -97,12 +99,12 @@ Das Standardschema ist:
 |     | wkis.qss.wko.at                                             | 443  |   x    | x  | x
 |     | wkis.wko.at | 443 |  |  | x
 | ext | proxy2.test.wpv.portalverbund.at | 8080 | x | x |
-| 2 | wkiswpv.qss.wko.at | 8080 | x | x |
-| 4 | wkiswpv.wko.at | 9090 | |  | x
 | 1 | rpmgr.qss.web.wk.wknet | 8081 |  | x | x
+| 2 | wkiswpv.qss.wko.at | 8080 | x | x |
 | 3 | rpmgr.web.wk.wknet | 9091 |  | x | x
 | 3 | idp2.web.wk.wknet (Monitoring IDP)| 9092| x | x | x
 | 3 | testsp.web.wk.wknet (Monitoring SP | 9093| | | x
+| 4 | wkiswpv.wko.at | 9090 | |  | x
 | | Anwendung mit Spieldaten Einbindungstest || x | |
 | | Anwendung mit Echtdaten Einbindungstest || | x |
 | | Anwendung produktiv || | | x

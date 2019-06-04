@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  redis:
+    container_name: redis
+    image: redis
+    hostname: redis
+    networks:
+      jenkins:
+    restart: unless-stopped
+    volumes:
+      - redis.data:/data:Z
+
+networks:
+  jenkins:
+    name: jenkins
+
+volumes:
+    redis.data:
+      name: redis.data
