@@ -257,13 +257,27 @@ Die Verbindung zum SATOSA Container erfolgt über http auf Port 8000.
 
 Für den RPMGR-Container ist ebenfalls ein Proxy zu konfigurieren, der nur für den Betrieb die Anwendung bereitstellt.
 
+Die Container benötigen jeweils nur eine Verbindung zum Load Balancer,
+nicht aber untereinander oder  zum WKIS IDP, weil sämtliche Kommunikation über den Browser (Front Channel) verläuft.
+
+
 === Konfiguration von Container und Anwendung
 
 Die Grundkonfiguration ist auf den Jenkins eingestellt.
 Für das Zielsystem sind abweichend davon folgende Werte anzupassen.
 
+==== SATOSA-RPMGR
+
+- docker-compose anpassen (Netzwerk)
+- /opt/etc/logrotate/logrotate.conf anpassen
+- Die Anwendung kann mit der vorkonfigurierten Datenbank gestartet werden.
+
+
 ==== SATOSA
 
+Um die Konfigurationsänderungen nachvollziehbar zu machen, wird im Container in /opt/etc ein Git Repo erstellt,
+und nach jeder Änderung ein `git add -A; git commit`ausgeführt.
+Damit ist die Historie der Änderungen gut nachvollziehbar.
 Zur Vorbereitung sind vHosts im Edgeproxy (Load Balancer) einzurichten
 
 |===
@@ -283,7 +297,9 @@ Die Proxy-Konfiguration liegt in /opt/satosa/etc.
 Die Konfiguraitonsschritte sind:
 * Als Startwert ist die Test-Konfiguration von install/test/proxy2 zu kopieren.
   Die Dateien keys/frontend* und keys/backend/* sind zu löschen.
-* Dann sind neue Schlüsselpaare zu erzeugen und als PEM in keys abzulegen (openssl etc.).
+* Dann sind neue selbst-signierte Schlüsselpaare zu erzeugen und als PEM in keys/ abzulegen
+  (z.b. mit dem Skript config/genkey.sh in diesem Repo).
+  backend*.pem und frontend.pem enthalten üblicherwise die gleichen Keys.
   WPV-seitig sind langlebige (>= 10 Jahre), selbst-signierte Zertifikate zu erstellen.
   WKIS-seitig wird entsprechend der Vorgaben der WKO Inhouse verfahren.
   Die Metadatenzertifikate für Test und Prod sind vorhanden.
@@ -293,7 +309,9 @@ Die Konfiguraitonsschritte sind:
   ** saml2-frontend.yaml
 * Beim ersten Start von SATOSA werde die Metadaten in metadata/ generiert.
   Sie sind zu exportieren, manuell nachzubearbeiten und dann in der Metadatenverwaltung zu registrieren.
-
+* Logging: In der Voreinstellung loggt SATOSA sowohl auf die Konsole als auch nach /var/log/satosa.
+  Für den laufenden Betrieb reicht ein Output Stream.
+  Um den Logoutput auf stdout/stderr zu leiten, ist /opt/etc/gunicorn/config.py entpsrechend anzupassen.
 ==== RPMGR
 
 ==== Webisoget
