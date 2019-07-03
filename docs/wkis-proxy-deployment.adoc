@@ -270,6 +270,7 @@ Für das Zielsystem sind abweichend davon folgende Werte anzupassen.
 
 - docker-compose anpassen (Netzwerk)
 - /opt/etc/logrotate/logrotate.conf anpassen
+- /opt/etc/satosa_rpmgr/settings_prod.py  # neues Secret erzeugen und eintragen
 - Die Anwendung kann mit der vorkonfigurierten Datenbank gestartet werden.
 
 
