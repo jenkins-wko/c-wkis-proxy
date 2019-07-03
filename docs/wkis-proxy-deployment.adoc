@@ -296,6 +296,7 @@ Zur Vorbereitung sind vHosts im Edgeproxy (Load Balancer) einzurichten
 
 Die Proxy-Konfiguration liegt in /opt/satosa/etc.
 Die Konfiguraitonsschritte sind:
+
 * Als Startwert ist die Test-Konfiguration von install/test/proxy2 zu kopieren.
   Die Dateien keys/frontend* und keys/backend/* sind zu löschen.
 * Dann sind neue selbst-signierte Schlüsselpaare zu erzeugen und als PEM in keys/ abzulegen
