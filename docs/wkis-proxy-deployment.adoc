@@ -272,6 +272,10 @@ Für das Zielsystem sind abweichend davon folgende Werte anzupassen.
 - /opt/etc/logrotate/logrotate.conf anpassen
 - /opt/etc/satosa_rpmgr/settings_prod.py  # neues Secret erzeugen und eintragen
 - Die Anwendung kann mit der vorkonfigurierten Datenbank gestartet werden.
+- Aus dem Inhalt der Datenbank wird die Datei custom_routing_DecideIfRequesterIsAllowed.yaml erzeugt.
+  Es muss ein Script eingerichtet werden, mit dem `export_allowed.py` aufgerufen wird und
+  der Output nach /opt/etc/satosa/plugins/microservices/custom_routing_DecideIfRequesterIsAllowed.yaml kopiert wird.
+  Das Script muss manuell nach der Änderung der DB aufgerufen werden.
 
 
 ==== SATOSA
