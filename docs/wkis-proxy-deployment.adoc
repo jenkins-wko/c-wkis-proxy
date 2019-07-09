@@ -305,7 +305,7 @@ Die Konfiguraitonsschritte sind:
   Die Dateien keys/frontend* und keys/backend/* sind zu löschen.
 * Dann sind neue selbst-signierte Schlüsselpaare zu erzeugen und als PEM in keys/ abzulegen
   (z.b. mit dem Skript config/genkey.sh in diesem Repo).
-  backend*.pem und frontend.pem enthalten üblicherwise die gleichen Keys.
+  backend*.pem und frontend.pem enthalten hier unterschiedliche Keys, weil die WKO eigene Zertifikate erstellt.
   WPV-seitig sind langlebige (>= 10 Jahre), selbst-signierte Zertifikate zu erstellen.
   WKIS-seitig wird entsprechend der Vorgaben der WKO Inhouse verfahren.
   Die Metadatenzertifikate für Test und Prod sind vorhanden.
@@ -315,6 +315,7 @@ Die Konfiguraitonsschritte sind:
   ** saml2-frontend.yaml
 * Beim ersten Start von SATOSA werde die Metadaten in metadata/ generiert.
   Sie sind zu exportieren, manuell nachzubearbeiten und dann in der Metadatenverwaltung zu registrieren.
+  Bei der Nachbearbeitung für die backend-Metadaten ist die Signatur zu entfernen und der WKIS Redirect-URL als Kommentar einzufügen.
 * Logging: In der Voreinstellung loggt SATOSA sowohl auf die Konsole als auch nach /var/log/satosa.
   Für den laufenden Betrieb reicht ein Output Stream.
   Um den Logoutput auf stdout/stderr zu leiten, ist /opt/etc/gunicorn/config.py entpsrechend anzupassen.
