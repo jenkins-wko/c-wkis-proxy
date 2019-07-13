@@ -71,6 +71,7 @@ image::resources/Deployment_wkis_proxy_comp.svg[]
 |https://github.com/identinetics/d-satosa-rpmgr[d-satosa-rpmgr] | X |  Relying Party Manager (RPMGR)| -> https://github.com/identinetics/pyFF[identinetics/pyFF], https://github.com/rhoerbe/pyXMLSecurity[rhoerbe/pyXMLSecurity], d-centos7_py36_base
 |https://github.com/identinetics/webisoget[webisoget] | X |  SAML-Monitor Webisoget (Docker Image Builder) |
 |https://github.com/rhoerbe/c-webisoget[c-webisoget] | - | Webisoget Config Template Repo|
+|https://github.com/identinetics/d-shibsp[d-shibsp] | X |  SAML SP| d-centos7_py36_base
 |https://github.com/identinetics/c-shibsp-mon[c-shibsp-mon] | X |  Monitoring SP Docker Image Builder |
 |https://github.com/identinetics/d-centos7_base[d-centos7_base] | X | Base Docker Image |
 |https://github.com/identinetics/d-centos7_py36_base[d-centos7_py36_base] | X | Base Docker Image | centos7_base
@@ -283,7 +284,7 @@ Für das Zielsystem sind abweichend davon folgende Werte anzupassen.
 Um die Konfigurationsänderungen nachvollziehbar zu machen, wird im Container in /opt/etc ein Git Repo erstellt,
 und nach jeder Änderung ein `git add -A; git commit`ausgeführt.
 Damit ist die Historie der Änderungen gut nachvollziehbar.
-Zur Vorbereitung sind vHosts im Edgeproxy (Load Balancer) einzurichten
+Zur Vorbereitung sind vHosts im Edgeproxy (Load Balancer) einzurichten.
 
 |===
 |File|Parameter|Beschreibung
@@ -302,6 +303,7 @@ Die Proxy-Konfiguration liegt in /opt/satosa/etc.
 Die Konfiguraitonsschritte sind:
 
 * Als Startwert ist die Test-Konfiguration von install/test/proxy2 zu kopieren.
+  Dort sind bereits das Attibute-Mapping und die Microservices für den WKIS/WPV-Proxy konfiguriert.
   Die Dateien keys/frontend* und keys/backend/* sind zu löschen.
 * Dann sind neue selbst-signierte Schlüsselpaare zu erzeugen und als PEM in keys/ abzulegen
   (z.b. mit dem Skript config/genkey.sh in diesem Repo).
@@ -319,11 +321,13 @@ Die Konfiguraitonsschritte sind:
 * Logging: In der Voreinstellung loggt SATOSA sowohl auf die Konsole als auch nach /var/log/satosa.
   Für den laufenden Betrieb reicht ein Output Stream.
   Um den Logoutput auf stdout/stderr zu leiten, ist /opt/etc/gunicorn/config.py entpsrechend anzupassen.
-==== RPMGR
 
 ==== Webisoget
 
 ==== Monitoring SP
+  Der SP dient dazu, dass Webisoget Monitoring Requests absetzt, die einen Authentication Request am Proxy auslösen.
+  Das Image ist vom Repository d-shibsp zu erzeugen.
+  Für die Konfiguration ist die Vorgangsweise entsprechend dem README.
 
 === Setup Script für die Target VM
 
