@@ -322,12 +322,31 @@ Die Konfiguraitonsschritte sind:
   Für den laufenden Betrieb reicht ein Output Stream.
   Um den Logoutput auf stdout/stderr zu leiten, ist /opt/etc/gunicorn/config.py entpsrechend anzupassen.
 
+
+==== Script für die Aktualisierung des RP Filters
+
+Wenn die Relying Parties im RP Manager editiert wurden, müssen sie in das config-Volume des SATOSA-container kopiert werden.
+Danach muss der SATOSA-Container neu gestartet werden.
+Daher ist ein Script einzurichten, das folgende Schritte ausführt:
+
+    * Script ´/opt/bin/export_allowed_rp.sh´ im rpmgr-Container ausführen
+    * rpmgr:/opt/satosa_rpmgr/export/custom_routing_DecideIfRequesterIsAllowed.yaml nach /tmp kopieren
+    * /tmp/custom_routing_DecideIfRequesterIsAllowed.yaml auf /tmp in der SATOSA-VM kopieren
+    * /tmp/custom_routing_DecideIfRequesterIsAllowed.yaml nach satosa:/opt/etc/satosa/plugins/microservices/custom_routing_DecideIfRequesterIsAllowed.yaml kopieren
+    * SATOSA-Container neu starten (down/up)
+
+
+
 ==== Webisoget
 
 ==== Monitoring SP
   Der SP dient dazu, dass Webisoget Monitoring Requests absetzt, die einen Authentication Request am Proxy auslösen.
   Das Image ist vom Repository d-shibsp zu erzeugen.
-  Für die Konfiguration ist die Vorgangsweise entsprechend dem README.
+  Konfiguration
+
+  * Container und volumes erzeugen
+  * Die vorkonfigurierten Daten für die SP-.Volumes aus diesem Repo (config/testsp) kopieren
+  * Den Container starten und testen
 
 === Setup Script für die Target VM
 
