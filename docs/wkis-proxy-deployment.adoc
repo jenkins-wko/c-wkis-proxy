@@ -72,7 +72,6 @@ image::resources/Deployment_wkis_proxy_comp.svg[]
 |https://github.com/identinetics/webisoget[webisoget] | X |  SAML-Monitor Webisoget (Docker Image Builder) |
 |https://github.com/rhoerbe/c-webisoget[c-webisoget] | - | Webisoget Config Template Repo|
 |https://github.com/identinetics/d-shibsp[d-shibsp] | X |  SAML SP| d-centos7_py36_base
-|https://github.com/identinetics/c-shibsp-mon[c-shibsp-mon] | X |  Monitoring SP Docker Image Builder |
 |https://github.com/identinetics/d-centos7_base[d-centos7_base] | X | Base Docker Image |
 |https://github.com/identinetics/d-centos7_py36_base[d-centos7_py36_base] | X | Base Docker Image | centos7_base
 |https://github.com/identinetics/[dcshell] | - | Docker-compose tools |
@@ -97,8 +96,8 @@ Das Standardschema ist:
 | Node |                                                            | Port | Entw.  | QS | Prod
 | ext | Metadatenfeed mdfeed.test.wpv.portalverbund.at/metadata.xml |  80  |   x    | x  |
 | ext | Metadatenfeed mdfeed.wpv.portalverbund.at/metadata.xml      |  80  |        | x  |
-|     | wkis.qss.wko.at                                             | 443  |   x    | x  | x
-|     | wkis.wko.at | 443 |  |  | x
+|     | WKIS-IDP wkis.qss.wko.at                                    | 443  |   x    | x  | x
+|     | WKIS-IDP wkis.wko.at | 443 |  |  | x
 | ext | proxy2.test.wpv.portalverbund.at | 8080 | x | x |
 | 1 | rpmgr.qss.web.wk.wknet | 8081 |  | x | x
 | 2 | wkiswpv.qss.wko.at | 8080 | x | x |
