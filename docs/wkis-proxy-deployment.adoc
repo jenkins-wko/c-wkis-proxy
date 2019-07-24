@@ -334,6 +334,8 @@ Daher ist ein Script einzurichten, das folgende Schritte ausführt:
     * /tmp/custom_routing_DecideIfRequesterIsAllowed.yaml nach satosa:/opt/etc/satosa/plugins/microservices/custom_routing_DecideIfRequesterIsAllowed.yaml kopieren
     * SATOSA-Container neu starten (down/up)
 
+Script liegt auf dem Servern webwpvprd01.web.wk.wknet und webwpvqss01.web.wk.wknet unter /root/rp-filter-update.sh.
+
 
 
 ==== Webisoget
