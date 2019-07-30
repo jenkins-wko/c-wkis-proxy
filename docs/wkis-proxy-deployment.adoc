@@ -347,17 +347,30 @@ Daher ist ein Script einzurichten, das folgende Schritte ausführt:
   * Die vorkonfigurierten Daten für die SP-.Volumes aus diesem Repo (config/testsp) kopieren
   * Den Container starten und testen
 
-=== Setup Script für die Target VM
+=== SAML entityIDs
 
-Das Deployment erfolgt in folgenden Schritten:
+Die folgende Tabelle dokumentiert die entityIDs der WPV Infrastruktur.
+Die Metadaten der sonstigen Relying Parties sind dem Metadaten-Feed zu entnehmen.
 
-   # 2. Dieses Repo am Zielsystem auschecken wie oben beschrieben
-   cd /opt
-   git clone github.com/rhoerbe/c-wkis-proxy
-   git submodule update --init
+.entiyIDs
+|===
+| Entity | entityID
+| WKIS-Proxy Backend (Dev) | https://satosa.vnet/sp/proxy_backend.xml
+| WKIS-Proxy Frontend (Dev) | https://satosa.vnet/idp_proxy.xml
+| WKIS-Proxy Backend (QSS) | https://wkiswpv.qss.wko.at/sp/proxy_backend.xml
+| WKIS-Proxy Frontend (QSS) | https://wkiswpv.wko.at/sp/proxy_backend.xml
+| WKIS (QSS) | https://wkiswpv.wko.at/sp/proxy_backend.xml
+| SP1 (QSS) | https://sp1.test.wpv.portalverbund.at/sp.xml
 
-   # 3. Container + persistente Volumes erzeugen
-   cp docker-compose.yaml.default docker-compose.yaml
+| WKIS-Proxy Backend (QSS) | https://wkiswpv.wko.at/sp/proxy_backend.xml
+| WKIS-Proxy Frontend (Prod) | https://wkiswpv.wko.at/idp_proxy.xml
+| WKIS (Prod) | http://wkis.wko.at/adfs/services/trust
+| TestSP (Prod) | https://testsp.wpv.portalverbund.at/sp.xml
+|===
+
+
+
+
 
 == Betrieb
 === Start und Stop
