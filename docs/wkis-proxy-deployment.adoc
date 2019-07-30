@@ -414,3 +414,14 @@ Die Logrotate-Konfiguration kann über /opt/etc/logrotate/logrotate.conf angepas
 === Security Considerations
 
 Der Betrieb ist für Aktualisierung und Vulnerability Scanning verantwortlich.
+
+== Known Issues
+
+Das Source-Repo von SATOSA ist derzeit ein Fork vom Upstream Projekt.
+Issues werden beim Upstream-Projekt gemeldet.
+
+Ausnahme:   Fehlermeldungen beim Start:
+
+"ERROR:satosa.plugin_loader:_load_microservices:Unable to load request micro service .."
+
+Diser Fehler kann ignoriert werden, und ist im Upstream-Projekt schon gefixt.
