@@ -373,7 +373,14 @@ Die Container werden über docker-compose parametrisiert und gesteuert.
 |===
 
 
-=== Monitoring
+=== Test und Monitoring
+
+Der Login-Test mit Test-SPs erfolgt unter diesen Adressen:
+
+* https://sp1.test.wpv.portalverbund.at (dev/test/qss)
+* https://testsp.wpv.portalverbund.at/Shibboleth.sso/Login?entityID=https://wkiswpv.wko.at/idp_proxy.xml (prod)
+
+
 
 Das einfache Monitoring erfolgt mit einem HTTP-Request auf den Proxy mit dem Pfad sso/redirect.
 Das erwartete Resultat ist ein HTTP 4xx Fehler.
@@ -394,7 +401,7 @@ Z.B. satosa-pr.opt_satosa_etc und satosa-pr.var_log
 
 Änderungen sind selten bei den Konfigurationsdaten in /opt/c-wkis-proxy zu erwarten.
 
-Ansonsten wird ein VM-Snapshot in diesem Fall die einfachste Backuzp-Strategie sein.
+Ansonsten wird ein VM-Snapshot in diesem Fall die einfachste Backup-Strategie sein.
 
 === Logging
 
