@@ -334,7 +334,7 @@ Daher ist ein Script einzurichten, das folgende Schritte ausführt:
     * /tmp/custom_routing_DecideIfRequesterIsAllowed.yaml nach satosa:/opt/etc/satosa/plugins/microservices/custom_routing_DecideIfRequesterIsAllowed.yaml kopieren
     * SATOSA-Container neu starten (down/up)
 
-
+Script liegt unter /opt/docker/rp-filter-update.sh. Muss mit Sudo Rechten ausgeführt werden.
 
 ==== Webisoget
 
